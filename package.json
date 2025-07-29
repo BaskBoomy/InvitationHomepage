@@ -7,7 +7,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pm2": "PORT=4000 pm2 start npm --name invitation -- run start"
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:start:dev": "pm2 start ecosystem.config.js --env development",
+    "pm2:stop": "pm2 stop invitation",
+    "pm2:restart": "pm2 restart invitation",
+    "pm2:reload": "pm2 reload invitation",
+    "pm2:delete": "pm2 delete invitation",
+    "pm2:logs": "pm2 logs invitation",
+    "pm2:logs:error": "pm2 logs invitation --err",
+    "pm2:status": "pm2 status",
+    "pm2:monit": "pm2 monit",
+    "pm2:flush": "pm2 flush",
+    "pm2:reset": "pm2 reset invitation",
+    "pm2:startup": "pm2 startup",
+    "pm2:save": "pm2 save",
+    "pm2:resurrect": "pm2 resurrect",
+    "deploy": "npm run build && npm run pm2:start"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

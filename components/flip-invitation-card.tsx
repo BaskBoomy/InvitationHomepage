@@ -70,32 +70,52 @@ export function FlipInvitationCard({ data }: FlipInvitationCardProps) {
               </div>
             ) : (
               /* Fallback when image fails to load */
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-amber-100 to-orange-200 text-amber-800">
-                <div className="text-center p-6 sm:p-8 lg:p-12">
-                  <div className="text-6xl sm:text-8xl lg:text-9xl mb-6 lg:mb-8">
-                    🎲🍷
+              <div className="w-full h-full relative bg-gradient-to-br from-amber-100 to-orange-200 text-amber-800">
+                <div className="w-full h-full flex flex-col items-center justify-center">
+                  <div className="text-center p-6 sm:p-8 lg:p-12">
+                    <div className="text-6xl sm:text-8xl lg:text-9xl mb-6 lg:mb-8">
+                      🎲🍷
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-4">
+                      GAME & WINE NIGHT
+                    </h2>
+                    <p className="text-lg sm:text-xl lg:text-2xl opacity-80 font-medium">
+                      보드게임과 와인의 밤
+                    </p>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-4">
-                    GAME & WINE NIGHT
-                  </h2>
-                  <p className="text-lg sm:text-xl lg:text-2xl opacity-80 font-medium">
-                    보드게임과 와인의 밤
-                  </p>
+                </div>
+
+                {/* Fallback용 클릭 안내 */}
+                <div className="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-center">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 sm:px-6 sm:py-3 shadow-lg border border-amber-200">
+                    <p
+                      className="text-sm sm:text-base font-medium mb-1"
+                      style={{ color: "#813828" }}
+                    >
+                      터치하여 상세보기
+                    </p>
+                    <p
+                      className="text-xs opacity-70"
+                      style={{ color: "#5B332B" }}
+                    >
+                      Touch to see details
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
-            <div className="absolute inset-0 bg-black/30 sm:bg-black/20 lg:bg-black/25 flex items-start sm:items-center justify-center transition-all duration-200 hover:bg-black/50 pt-[12vh] sm:pt-0">
-              <div className="text-white text-center px-4 sm:px-6 lg:px-8">
-                <div className="bg-black/20 backdrop-blur-sm rounded-lg px-4 py-3 sm:px-6 sm:py-4">
-                  <p className="text-lg sm:text-xl lg:text-2xl font-bold mb-2 drop-shadow-lg">
-                    {imageError ? "터치하여 상세보기" : "클릭하여 상세보기"}
-                  </p>
-                  <p className="text-sm sm:text-base lg:text-lg opacity-90 drop-shadow-md">
-                    {imageError
-                      ? "Touch to see details"
-                      : "Click to see details"}
-                  </p>
-                </div>
+            {/* 이미지 하단 클릭 안내 */}
+            <div className="absolute bottom-30 left-1/2 transform -translate-x-1/2 text-center">
+              <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 sm:px-6 sm:py-3 shadow-lg border border-white/30">
+                <p
+                  className="text-sm sm:text-base font-medium mb-1"
+                  style={{ color: "#813828" }}
+                >
+                  클릭하여 상세보기
+                </p>
+                <p className="text-xs opacity-70" style={{ color: "#5B332B" }}>
+                  Click to see details
+                </p>
               </div>
             </div>
           </div>
