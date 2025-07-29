@@ -11,14 +11,33 @@ export default function Home() {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
+    // 정확한 viewport 높이 설정
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setViewportHeight();
+    window.addEventListener("resize", setViewportHeight);
+    window.addEventListener("orientationchange", setViewportHeight);
+
     if (!isLoading) {
       const timer = setTimeout(() => {
         setShowWelcome(false);
         setTimeout(() => setShowContent(true), 300);
       }, 2000);
 
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("resize", setViewportHeight);
+        window.removeEventListener("orientationchange", setViewportHeight);
+      };
     }
+
+    return () => {
+      window.removeEventListener("resize", setViewportHeight);
+      window.removeEventListener("orientationchange", setViewportHeight);
+    };
   }, [isLoading]);
 
   if (isLoading) {
@@ -32,7 +51,13 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden">
+    <main
+      className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden"
+      style={{
+        height: "calc(var(--vh, 1vh) * 100)",
+        minHeight: "100vh", // Fallback
+      }}
+    >
       {/* 환영 애니메이션 */}
       {showWelcome && (
         <div

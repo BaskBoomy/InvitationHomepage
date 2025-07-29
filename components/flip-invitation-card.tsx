@@ -51,19 +51,16 @@ export function FlipInvitationCard({ data }: FlipInvitationCardProps) {
                   src="/game-wine-night.png"
                   alt="Game & Wine Night Invitation"
                   fill
-                  className={`object-cover sm:object-contain lg:object-contain transition-opacity duration-500 ${
+                  className={`object-contain transition-opacity duration-500 ${
                     imageLoaded ? "opacity-100" : "opacity-0"
                   }`}
                   priority
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
                   onError={() => setImageError(true)}
                   onLoad={() => setImageLoaded(true)}
-                  style={{
-                    objectPosition: "center center",
-                  }}
                 />
                 {!imageLoaded && !imageError && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100">
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100 m-4 sm:m-6 lg:m-8 rounded-lg">
                     <div className="text-amber-600 text-center">
                       <div className="text-4xl mb-2 animate-pulse">🎲🍷</div>
                       <p className="text-sm">로딩 중...</p>
@@ -87,7 +84,7 @@ export function FlipInvitationCard({ data }: FlipInvitationCardProps) {
                 </div>
               </div>
             )}
-            <div className="absolute inset-0 bg-black/30 sm:bg-black/20 lg:bg-black/25 flex items-center justify-center transition-all duration-200 hover:bg-black/50">
+            <div className="absolute inset-0 bg-black/30 sm:bg-black/20 lg:bg-black/25 flex items-start sm:items-center justify-center transition-all duration-200 hover:bg-black/50 pt-[12vh] sm:pt-0">
               <div className="text-white text-center px-4 sm:px-6 lg:px-8">
                 <div className="bg-black/20 backdrop-blur-sm rounded-lg px-4 py-3 sm:px-6 sm:py-4">
                   <p className="text-lg sm:text-xl lg:text-2xl font-bold mb-2 drop-shadow-lg">
@@ -110,8 +107,10 @@ export function FlipInvitationCard({ data }: FlipInvitationCardProps) {
             className="w-full h-full overflow-y-scroll overflow-x-hidden relative"
             style={{
               WebkitOverflowScrolling: "touch",
-              height: "100vh",
-              maxHeight: "100vh",
+              height: "100dvh",
+              maxHeight: "100dvh",
+              /* Fallbacks for older browsers */
+              minHeight: "100vh",
             }}
             onClick={(e) => e.stopPropagation()}
             onTouchStart={(e) => {

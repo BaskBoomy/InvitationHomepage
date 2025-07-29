@@ -153,47 +153,45 @@
 /* Mobile Image Optimization */
 @media (max-width: 640px) {
   .flip-card-container {
-    /* Full screen on mobile */
-    height: 100vh !important;
+    /* Full screen on mobile - use dynamic viewport height */
+    height: 100dvh !important;
     width: 100vw !important;
+    /* Fallback for browsers that don't support dvh */
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   /* Mobile image container optimization */
   .mobile-image-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* 이미지를 위쪽으로 정렬 */
     justify-content: center;
     overflow: hidden;
     border-radius: 0;
+    padding: 6vh 15px 20px 15px; /* 상단에 6vh 패딩으로 위치 조정 */
   }
 
-  /* Mobile image optimization - fill screen */
+  /* Mobile image optimization - show full image */
   .mobile-image-container img {
-    object-fit: cover !important;
-    object-position: center center !important;
+    object-fit: contain !important;
+    object-position: center 20% !important; /* 모바일에서 이미지를 위쪽으로 이동 */
     width: 100% !important;
     height: 100% !important;
+    min-height: 60dvh;
+    min-height: 60vh; /* Fallback */
   }
 
-  /* Mobile landscape mode optimization */
-  @media (max-width: 640px) and (orientation: landscape) {
-    .mobile-image-container img {
-      object-fit: contain !important;
-    }
-  }
-
-  /* Very small mobile devices */
-  @media (max-width: 375px) {
-    .mobile-image-container img {
-      object-fit: cover !important;
-      object-position: center top !important;
-    }
+  /* Ensure proper aspect ratio on mobile */
+  .mobile-image-container {
+    min-height: 70dvh;
+    min-height: 70vh; /* Fallback */
   }
 
   /* Prevent front side scrolling completely */
   .flip-card-container:not(.rotate-y-180) {
     overflow: hidden !important;
-    height: 100vh !important;
+    height: 100dvh !important;
+    height: 100vh !important; /* Fallback */
   }
 
   .flip-card-container:not(.rotate-y-180) > div {
@@ -212,13 +210,32 @@
     transition: transform 0.1s ease;
   }
 
+  /* Additional mobile viewport fixes */
+  @supports not (height: 100dvh) {
+    .flip-card-container {
+      height: calc(var(--vh, 1vh) * 100) !important;
+    }
+  }
+
+  /* Fallback for when JavaScript variables are not available */
+  .flip-card-container {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
   /* Improve scrolling on mobile */
   body {
     overflow: hidden;
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100dvh;
+    height: 100vh; /* Fallback */
     touch-action: manipulation;
+  }
+
+  /* Root container optimization */
+  html {
+    height: 100dvh;
+    height: 100vh; /* Fallback */
   }
 
   /* Force scroll behavior on back side only */
@@ -238,9 +255,10 @@
 
   /* Tablet image optimization */
   .mobile-image-container {
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     overflow: hidden;
+    align-items: center; /* 태블릿에서는 중앙 정렬 */
   }
 
   .mobile-image-container img {
@@ -260,6 +278,7 @@
   .mobile-image-container {
     padding: 30px;
     border-radius: 16px;
+    align-items: center; /* 데스크톱에서는 중앙 정렬 */
   }
 
   .mobile-image-container img {
