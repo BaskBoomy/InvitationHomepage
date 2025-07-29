@@ -59,15 +59,12 @@ export async function GET() {
 // POST: 초대장 데이터 저장 (개발자 전용)
 export async function POST(request: NextRequest) {
   try {
-    // 간단한 개발자 키 확인 (또는 개발 환경에서만 허용)
+    // 개발자 키 확인
     const devKey = request.headers.get("X-Dev-Key");
     const allowedKeys = ["dev2024", process.env.DEV_KEY].filter(Boolean);
 
-    // 개발 환경이거나 올바른 키가 있으면 통과
-    if (
-      process.env.NODE_ENV !== "development" &&
-      (!devKey || !allowedKeys.includes(devKey))
-    ) {
+    // 올바른 키가 있어야만 통과
+    if (!devKey || !allowedKeys.includes(devKey)) {
       return NextResponse.json(
         { error: "Unauthorized - Invalid dev key" },
         { status: 401 }

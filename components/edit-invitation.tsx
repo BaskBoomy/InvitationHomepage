@@ -31,27 +31,52 @@ export function EditInvitation({ data, onSave }: EditInvitationProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // 방법 1: URL 파라미터로 개발자 모드 활성화 (?edit=true)
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("edit") === "true") {
-      setIsDevMode(true);
-      console.log("🔓 Developer mode activated via URL");
-      return;
-    }
-
-    // 방법 2: localStorage에 개발자 플래그가 있으면 활성화
-    if (localStorage.getItem("dev-mode") === "enabled") {
-      setIsDevMode(true);
-      console.log("🔓 Developer mode activated via localStorage");
-      return;
-    }
-
-    // 방법 3: 개발 환경에서 자동 활성화
-    if (process.env.NODE_ENV === "development") {
-      setIsDevMode(true);
-      console.log("🔓 Developer mode activated (development environment)");
-    }
+    // 서버에서 개발자 모드 상태 불러오기
+    loadDevModeState();
   }, []);
+
+  const loadDevModeState = async () => {
+    try {
+      const response = await fetch("/api/dev-mode");
+      if (response.ok) {
+        const { enabled } = await response.json();
+        setIsDevMode(enabled);
+        if (enabled) {
+          console.log("🔓 Developer mode activated (from server)");
+        }
+      } else {
+        setIsDevMode(false);
+      }
+    } catch (error) {
+      console.error("Error loading dev mode state:", error);
+      setIsDevMode(false);
+    }
+  };
+
+  const saveDevModeState = async (enabled: boolean) => {
+    try {
+      const response = await fetch("/api/dev-mode", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ enabled }),
+      });
+
+      if (response.ok) {
+        console.log(
+          `🔧 Developer mode ${enabled ? "enabled" : "disabled"} and saved`
+        );
+        return true;
+      } else {
+        console.error("Failed to save dev mode state");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error saving dev mode state:", error);
+      return false;
+    }
+  };
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -163,11 +188,14 @@ export function EditInvitation({ data, onSave }: EditInvitationProps) {
           backgroundColor: "rgba(220, 53, 69, 0.9)",
           color: "white",
         }}
-        onClick={() => {
-          localStorage.removeItem("dev-mode");
-          alert(
-            "🔒 개발자 모드가 비활성화되었습니다!\n페이지를 새로고침하세요."
-          );
+        onClick={async () => {
+          const success = await saveDevModeState(false);
+          if (success) {
+            setIsDevMode(false);
+            alert("🔒 개발자 모드가 비활성화되었습니다!");
+          } else {
+            alert("❌ 개발자 모드 비활성화에 실패했습니다.");
+          }
         }}
         title="개발자 모드 비활성화"
       >
