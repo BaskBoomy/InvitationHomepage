@@ -1,0 +1,44 @@
+{
+  "title": "🎲 보드게임 모임",
+  "location": "서울시 영등포구 양평로 157",
+  "hosts": [
+    "최종혁",
+    "정세원"
+  ],
+  "requirements": "편안한 옷과 맑은 정신",
+  "schedule": [
+    {
+      "time": "오후 4시",
+      "activity": "모임 시작"
+    },
+    {
+      "time": "5시까지",
+      "activity": "소담화"
+    },
+    {
+      "time": "6시",
+      "activity": "저녁 식사"
+    },
+    {
+      "time": "7시",
+      "activity": "강아지 산책"
+    },
+    {
+      "time": "7시 30분",
+      "activity": "보드게임 시작"
+    },
+    {
+      "time": "중간 중간",
+      "activity": "간식 제공"
+    },
+    {
+      "time": "이후",
+      "activity": "와인 시식"
+    },
+    {
+      "time": "휴식 후",
+      "activity": "보드게임 재개"
+    }
+  ],
+  "additionalInfo": "즐거운 시간 보내요! 🎮"
+}
