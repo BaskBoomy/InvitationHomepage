@@ -48,7 +48,7 @@ export function FlipInvitationCard({ data }: FlipInvitationCardProps) {
             {!imageError ? (
               <div className="relative w-full h-full">
                 <Image
-                  src="/game-wine-night.png"
+                  src="/invitation/game-wine-night.png"
                   alt="Game & Wine Night Invitation"
                   fill
                   className={`object-contain transition-opacity duration-500 ${
