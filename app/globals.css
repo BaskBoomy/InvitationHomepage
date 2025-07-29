@@ -246,17 +246,24 @@
   }
 }
 
+/* Force scroll behavior on back side for all devices */
+.backface-hidden.rotate-y-180 > div {
+  overflow-y: scroll !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain;
+}
+
 /* Tablet specific adjustments */
 @media (min-width: 641px) and (max-width: 1024px) {
   .flip-card-container {
-    min-height: 500px;
-    max-height: 85vh;
+    height: 100vh;
+    width: 100vw;
   }
 
   /* Tablet image optimization */
   .mobile-image-container {
     padding: 25px;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     align-items: center; /* 태블릿에서는 중앙 정렬 */
   }
@@ -264,28 +271,29 @@
   .mobile-image-container img {
     object-fit: contain !important;
     object-position: center center !important;
-    border-radius: 8px;
+    border-radius: 0;
   }
 }
 
 /* Desktop optimization */
 @media (min-width: 1025px) {
   .flip-card-container {
-    border-radius: 16px;
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
     overflow: hidden;
   }
 
   .mobile-image-container {
     padding: 30px;
-    border-radius: 16px;
+    border-radius: 0;
     align-items: center; /* 데스크톱에서는 중앙 정렬 */
   }
 
   .mobile-image-container img {
     object-fit: contain !important;
     object-position: center center !important;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
   }
 }
 
